@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Flow Pass | Lexis English Academy</title>
+    <meta name="description" content="O sistema de inglês on-demand para profissionais de alta performance. Soberania de agenda e blindagem financeira.">
+    
+    <!-- Fonte Premium (Inter e Playfair Display para sofisticação) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- VARIÁVEIS DE CORES (PALETA OBRIGATÓRIA) --- */
+        :root {
+            --bg-main: #0f172a;        /* Fundo principal */
+            --bg-soft: #1e293b;        /* Variação suave para contraste */
+            --bg-overlay: #f59e0b1a;   /* Overlay sutil (Amber muito transparente) */
+            --text-main: #f8fafc;      /* Texto quase branco */
+            --text-sec: #94a3b8;       /* Texto secundário */
+            --cta-color: #fbd24c;      /* Amarelo Ouro - AÇÃO */
+            --cta-hover: #fbbf24;      /* Hover do CTA */
+            --divider: #798c8c;        /* Cinza neutro */
+            --highlight: #8c5414;      /* Bronze/Marrom para destaque */
+            --success: #10b981;
+        }
+
+        /* --- RESET E BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-size: 16px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif; /* Toque de elegância */
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a { text-decoration: none; transition: 0.3s ease; }
+        ul { list-style: none; }
+
+        /* --- UTILITÁRIOS --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .text-center { text-align: center; }
+        .text-sec { color: var(--text-sec); }
+        .text-highlight { color: var(--highlight); font-weight: 600; }
+        .uppercase { text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 800; }
+
+        /* --- BOTÕES (CTA) --- */
+        .btn-cta {
+            display: inline-block;
+            background-color: var(--cta-color);
+            color: var(--bg-main);
+            font-weight: 800;
+            padding: 18px 40px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 20px rgba(251, 210, 76, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-cta:hover {
+            background-color: var(--cta-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(251, 210, 76, 0.4);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--divider);
+            color: var(--divider);
+            padding: 12px 24px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--cta-color);
+            color: var(--cta-color);
+        }
+
+        /* --- SEÇÕES --- */
+        section { padding: 80px 0; }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top right, #1e293b 0%, var(--bg-main) 60%);
+            position: relative;
+        }
+        
+        .hero-content { max-width: 800px; margin: 0 auto; }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p.subheadline {
+            font-size: 1.25rem;
+            color: var(--text-sec);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .hero-bullets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 50px;
+            font-size: 0.95rem;
+            color: var(--text-sec);
+        }
+
+        .hero-bullet-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.03);
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .check-icon { color: var(--cta-color); }
+
+        /* PROBLEM SECTION */
+        .problem-section {
+            background-color: #0b1120;
+            border-top: 1px solid #1e293b;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .pain-point {
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 2px solid var(--highlight);
+        }
+
+        /* SOLUTION SECTION */
+        .solution-section {
+            background: linear-gradient(180deg, var(--bg-main) 0%, var(--bg-soft) 100%);
+            position: relative;
+        }
+
+        .method-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            padding: 40px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .method-card:hover {
+            border-color: var(--highlight);
+            background: rgba(255,255,255,0.04);
+        }
+
+        /* WHY CHOOSE / DIFFERENTIALS */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-box {
+            padding: 30px;
+            border-top: 1px solid var(--divider);
+        }
+
+        .feature-box h3 { margin-bottom: 15px; color: var(--cta-color); font-size: 1.2rem; font-family: 'Inter', sans-serif; }
+
+        /* HOW IT WORKS */
+        .steps-container {
+            border-left: 2px solid var(--divider);
+            margin-left: 20px;
+            padding-left: 40px;
+        }
+
+        .step-item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .step-item::before {
+            content: '';
+            position: absolute;
+            left: -49px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            background: var(--bg-main);
+            border: 3px solid var(--cta-color);
+            border-radius: 50%;
+        }
+
+        /* WHO IS IT FOR */
+        .target-section {
+            background-color: var(--bg-soft);
+        }
+
+        .target-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .check-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            color: var(--text-sec);
+        }
+
+        .x-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            color: var(--text-sec);
+            opacity: 0.7;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--divider);
+            padding: 60px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--divider);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .problem-grid, .target-grid { grid-template-columns: 1fr; }
+            .hero-bullets { flex-direction: column; align-items: center; }
+            .steps-container { margin-left: 10px; padding-left: 25px; }
+            .step-item::before { left: -34px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. HERO SECTION -->
+    <section class="hero text-center">
+        <div class="container hero-content">
+            <span class="uppercase text-highlight">Lexis English Academy Apresenta</span>
+            <br><br>
+            <h1>Soberania de Agenda: <br>O Inglês que obedece <br>a sua rotina.</h1>
+            
+            <p class="subheadline">
+                O primeiro sistema <strong>Private Flow Pass</strong> do mercado. Aulas 1-para-1, agendamento sob demanda e blindagem financeira para quem não pode desperdiçar tempo nem dinheiro.
+            </p>
+
+            <div class="hero-bullets">
+                <div class="hero-bullet-item"><span class="check-icon">●</span> Ideal para Offshore e Médicos</div>
+                <div class="hero-bullet-item"><span class="check-icon">●</span> Metodologia 3x mais rápida</div>
+                <div class="hero-bullet-item"><span class="check-icon">●</span> Risco Zero de perder aulas</div>
+            </div>
+
+            <a href="#contato" class="btn-cta">Falar com um Especialista</a>
+            <br>
+            <a href="#como-funciona" class="btn-outline">Entenda como funciona</a>
+        </div>
+    </section>
+
+    <!-- 2. O PROBLEMA -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="problem-grid">
+                <div>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Sua carreira evoluiu.<br>Os cursos tradicionais não.</h2>
+                    <p class="text-sec">Você tem uma rotina dinâmica. Viagens de última hora, plantões, escalas offshore ou reuniões que surgem do nada. Tentar se encaixar em uma turma com horário fixo é a receita certa para jogar dinheiro fora.</p>
+                </div>
+                <div>
+                    <div class="pain-point">
+                        <h4 class="text-highlight">O Ciclo da Frustração</h4>
+                        <p class="text-sec">Você paga a mensalidade, falta por trabalho, perde o conteúdo, se sente atrasado em relação à turma e desiste. O curso tradicional lucra com a sua ausência.</p>
+                    </div>
+                    <div class="pain-point">
+                        <h4 class="text-highlight">Aulas Genéricas</h4>
+                        <p class="text-sec">Em uma sala com 10 pessoas, você fala por 3 minutos. O professor precisa nivelar por baixo. Você precisa de inglês para negócios e reuniões, não de "verb to be" repetido.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. A SOLUÇÃO (FLOW PASS) -->
+    <section class="solution-section" id="metodo">
+        <div class="container">
+            <div class="text-center" style="max-width: 700px; margin: 0 auto 60px;">
+                <span class="uppercase text-highlight">A Evolução do Ensino</span>
+                <h2 style="font-size: 2.5rem; margin-top: 10px;">Private Flow Pass</h2>
+                <p class="text-sec">Esqueça turmas. Esqueça mensalidades perdidas. Bem-vindo ao modelo "On-Demand". Funciona como um streaming: você estuda quando quer, onde quer e no seu ritmo.</p>
+            </div>
+
+            <div class="method-card">
+                <h3>01. Sistema de Créditos Flexíveis</h3>
+                <p class="text-sec">Você adquire um pacote de horas (Créditos). Cada crédito vale 1 aula particular de 60 minutos. Use 3 vezes na semana quando estiver livre, ou nenhuma vez quando estiver viajando. O saldo é seu.</p>
+            </div>
+
+            <div class="method-card">
+                <h3>02. Ensino Private (1-para-1)</h3>
+                <p class="text-sec">Atenção 100% em você. O professor foca nas suas dores: destravar a fala, vocabulário técnico de engenharia, preparação para apresentações ou entrevistas.</p>
+            </div>
+
+            <div class="method-card">
+                <h3>03. A "Cláusula de Pausa"</h3>
+                <p class="text-sec">Vai embarcar ou sair de férias? Congele seu plano por até 90 dias. Seus créditos ficam protegidos e sua validade estendida. O único curso com Blindagem Financeira real.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. DIFERENCIAIS -->
+    <section>
+        <div class="container">
+            <h2 class="text-center">Por que a elite escolhe o Flow Pass?</h2>
+            
+            <div class="grid-3">
+                <div class="feature-box">
+                    <h3>Soberania de Agenda</h3>
+                    <p class="text-sec">Agende aulas de manhã, tarde, noite ou finais de semana. Cancele sem custo com apenas 12h de antecedência.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Metodologia Híbrida</h3>
+                    <p class="text-sec">Plataforma offline para teoria + Aula ao vivo exclusivamente para conversação e prática intensa.</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Foco em Resultados</h3>
+                    <p class="text-sec">Uma aula Private equivale a 5 aulas em grupo. Evolução acelerada para quem tem pressa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. COMO FUNCIONA NA PRÁTICA -->
+    <section class="target-section" id="como-funciona">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 50px;">
+                <h2>Simples. Lógico. Eficiente.</h2>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-item">
+                    <h4>1. Aquisição dos Créditos</h4>
+                    <p class="text-sec">Escolha seu pacote (20, 40 ou 60 horas). Acesso imediato à plataforma.</p>
+                </div>
+                <div class="step-item">
+                    <h4>2. Agendamento Livre</h4>
+                    <p class="text-sec">Visualize a agenda dos professores e reserve seu horário. Pode variar dias e horários a cada semana.</p>
+                </div>
+                <div class="step-item">
+                    <h4>3. A Aula Private</h4>
+                    <p class="text-sec">60 minutos de foco total em você via vídeochamada. Sem distrações.</p>
+                </div>
+                <div class="step-item">
+                    <h4>4. Imprevistos? Sem problemas.</h4>
+                    <p class="text-sec">Cancele no sistema antes de 12h do horário e seu crédito retorna integralmente para sua carteira.</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="#contato" class="btn-cta">Quero saber mais sobre os pacotes</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. PARA QUEM É -->
+    <section>
+        <div class="container">
+            <div class="target-grid">
+                <div>
+                    <h3 style="margin-bottom: 20px;">Para quem é o Flow Pass:</h3>
+                    <ul class="check-list">
+                        <li><span style="color:var(--cta-color)">✓</span> Profissionais Offshore e Aviação com escalas irregulares.</li>
+                        <li><span style="color:var(--cta-color)">✓</span> Executivos e Médicos com pouco tempo livre.</li>
+                        <li><span style="color:var(--cta-color)">✓</span> Quem precisa de inglês específico (Técnico, Business, Viagem).</li>
+                        <li><span style="color:var(--cta-color)">✓</span> Pessoas que travam ao falar em público/grupos.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px;">Para quem NÃO é:</h3>
+                    <ul class="x-list">
+                        <li><span>✕</span> Quem procura o preço mais baixo do mercado, não qualidade.</li>
+                        <li><span>✕</span> Quem gosta de salas de aula lotadas e ritmo lento.</li>
+                        <li><span>✕</span> Quem acredita em fórmulas mágicas sem dedicação.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. CTA FINAL -->
+    <section id="contato" style="background-color: #0b1120; padding: 100px 0;">
+        <div class="container text-center">
+            <span class="uppercase text-highlight">Última Chamada</span>
+            <h2 style="font-size: 3rem; margin: 20px 0;">Pare de adiar sua fluência.</h2>
+            <p class="text-sec" style="max-width: 600px; margin: 0 auto 40px;">
+                Não apresentamos preços públicos porque cada projeto é personalizado. Fale com um de nossos consultores para definir a melhor estratégia de créditos para o seu objetivo.
+            </p>
+            
+            <a href="#" class="btn-cta">Solicitar Proposta Personalizada</a>
+            <p style="margin-top: 20px; font-size: 0.85rem; color: var(--divider);">
+                * Atendimento exclusivo via WhatsApp ou E-mail.
+            </p>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <div class="container">
+            <p style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text-main); margin-bottom: 10px;">Lexis English Academy</p>
+            <p>© 2026 Private Flow Pass. Todos os direitos reservados.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">Metodologia Exclusiva • Ensino de Alta Performance</p>
+        </div>
+    </footer>
+
+</body>
+</html>
